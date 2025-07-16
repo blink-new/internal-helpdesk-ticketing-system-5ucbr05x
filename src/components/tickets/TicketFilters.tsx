@@ -53,7 +53,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
               <SelectContent>
                 <SelectItem value="all">All statuses</SelectItem>
                 {TICKET_STATUSES.map((status) => (
-                  <SelectItem key={status.value} value={status.value}>
+                  <SelectItem key={status.value} value={status.value || 'unknown'}>
                     <div className="flex items-center space-x-2">
                       <Badge className={status.color}>{status.label}</Badge>
                     </div>
@@ -75,7 +75,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
               <SelectContent>
                 <SelectItem value="all">All priorities</SelectItem>
                 {TICKET_PRIORITIES.map((priority) => (
-                  <SelectItem key={priority.value} value={priority.value}>
+                  <SelectItem key={priority.value} value={priority.value || 'unknown'}>
                     <div className="flex items-center space-x-2">
                       <Badge className={priority.color}>{priority.label}</Badge>
                     </div>
@@ -97,7 +97,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
               <SelectContent>
                 <SelectItem value="all">All categories</SelectItem>
                 {TICKET_CATEGORIES.map((category) => (
-                  <SelectItem key={category} value={category}>
+                  <SelectItem key={category} value={category || 'unknown'}>
                     {category}
                   </SelectItem>
                 ))}

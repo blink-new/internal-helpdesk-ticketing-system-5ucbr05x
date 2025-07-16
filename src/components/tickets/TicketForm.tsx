@@ -106,7 +106,7 @@ export function TicketForm({ onClose, onSubmit }: TicketFormProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {TICKET_CATEGORIES.map((category) => (
-                      <SelectItem key={category} value={category}>
+                      <SelectItem key={category} value={category || 'unknown'}>
                         {category}
                       </SelectItem>
                     ))}
@@ -125,7 +125,7 @@ export function TicketForm({ onClose, onSubmit }: TicketFormProps) {
                   </SelectTrigger>
                   <SelectContent>
                     {TICKET_PRIORITIES.map((priority) => (
-                      <SelectItem key={priority.value} value={priority.value}>
+                      <SelectItem key={priority.value} value={priority.value || 'unknown'}>
                         <div className="flex items-center space-x-2">
                           <Badge className={priority.color}>{priority.label}</Badge>
                         </div>
