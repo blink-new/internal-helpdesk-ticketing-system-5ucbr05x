@@ -90,10 +90,10 @@ function App() {
   const [filteredTickets, setFilteredTickets] = useState<Ticket[]>([])
   const [searchQuery, setSearchQuery] = useState('')
   const [filters, setFilters] = useState({
-    status: '',
-    priority: '',
-    category: '',
-    assignedTo: ''
+    status: 'all',
+    priority: 'all',
+    category: 'all',
+    assignedTo: 'all'
   })
   const { toast } = useToast()
 
@@ -124,16 +124,16 @@ function App() {
     }
 
     // Apply filters
-    if (filters.status) {
+    if (filters.status && filters.status !== 'all') {
       filtered = filtered.filter(ticket => ticket.status === filters.status)
     }
-    if (filters.priority) {
+    if (filters.priority && filters.priority !== 'all') {
       filtered = filtered.filter(ticket => ticket.priority === filters.priority)
     }
-    if (filters.category) {
+    if (filters.category && filters.category !== 'all') {
       filtered = filtered.filter(ticket => ticket.category === filters.category)
     }
-    if (filters.assignedTo) {
+    if (filters.assignedTo && filters.assignedTo !== 'all') {
       if (filters.assignedTo === 'unassigned') {
         filtered = filtered.filter(ticket => !ticket.assignedTo)
       } else if (filters.assignedTo === 'me') {
@@ -174,10 +174,10 @@ function App() {
 
   const handleClearFilters = () => {
     setFilters({
-      status: '',
-      priority: '',
-      category: '',
-      assignedTo: ''
+      status: 'all',
+      priority: 'all',
+      category: 'all',
+      assignedTo: 'all'
     })
   }
 
@@ -273,12 +273,12 @@ function App() {
               </div>
               <h3 className="text-lg font-medium text-gray-900 mb-2">No tickets found</h3>
               <p className="text-gray-600 mb-4">
-                {searchQuery || Object.values(filters).some(Boolean)
+                {searchQuery || Object.values(filters).some(value => value && value !== 'all')
                   ? 'Try adjusting your search or filters'
                   : 'Get started by creating your first ticket'
                 }
               </p>
-              {!searchQuery && !Object.values(filters).some(Boolean) && (
+              {!searchQuery && !Object.values(filters).some(value => value && value !== 'all') && (
                 <button
                   onClick={() => setShowTicketForm(true)}
                   className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"

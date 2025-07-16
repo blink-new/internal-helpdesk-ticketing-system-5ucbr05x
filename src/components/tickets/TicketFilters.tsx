@@ -17,7 +17,7 @@ interface TicketFiltersProps {
 }
 
 export function TicketFilters({ filters, onFilterChange, onClearFilters }: TicketFiltersProps) {
-  const activeFiltersCount = Object.values(filters).filter(Boolean).length
+  const activeFiltersCount = Object.values(filters).filter(value => value && value !== 'all').length
 
   return (
     <Card>
@@ -51,7 +51,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
                 <SelectValue placeholder="All statuses" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All statuses</SelectItem>
+                <SelectItem value="all">All statuses</SelectItem>
                 {TICKET_STATUSES.map((status) => (
                   <SelectItem key={status.value} value={status.value}>
                     <div className="flex items-center space-x-2">
@@ -73,7 +73,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
                 <SelectValue placeholder="All priorities" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All priorities</SelectItem>
+                <SelectItem value="all">All priorities</SelectItem>
                 {TICKET_PRIORITIES.map((priority) => (
                   <SelectItem key={priority.value} value={priority.value}>
                     <div className="flex items-center space-x-2">
@@ -95,7 +95,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
                 <SelectValue placeholder="All categories" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All categories</SelectItem>
+                <SelectItem value="all">All categories</SelectItem>
                 {TICKET_CATEGORIES.map((category) => (
                   <SelectItem key={category} value={category}>
                     {category}
@@ -115,7 +115,7 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
                 <SelectValue placeholder="All assignees" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="">All assignees</SelectItem>
+                <SelectItem value="all">All assignees</SelectItem>
                 <SelectItem value="unassigned">Unassigned</SelectItem>
                 <SelectItem value="me">Assigned to me</SelectItem>
                 <SelectItem value="dev-team">Dev Team</SelectItem>
@@ -127,53 +127,53 @@ export function TicketFilters({ filters, onFilterChange, onClearFilters }: Ticke
         {activeFiltersCount > 0 && (
           <div className="mt-4 pt-4 border-t">
             <div className="flex flex-wrap gap-2">
-              {filters.status && (
+              {filters.status && filters.status !== 'all' && (
                 <Badge variant="outline" className="flex items-center space-x-1">
                   <span>Status: {TICKET_STATUSES.find(s => s.value === filters.status)?.label}</span>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-auto p-0 ml-1"
-                    onClick={() => onFilterChange('status', '')}
+                    onClick={() => onFilterChange('status', 'all')}
                   >
                     <X className="h-3 w-3" />
                   </Button>
                 </Badge>
               )}
-              {filters.priority && (
+              {filters.priority && filters.priority !== 'all' && (
                 <Badge variant="outline" className="flex items-center space-x-1">
                   <span>Priority: {TICKET_PRIORITIES.find(p => p.value === filters.priority)?.label}</span>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-auto p-0 ml-1"
-                    onClick={() => onFilterChange('priority', '')}
+                    onClick={() => onFilterChange('priority', 'all')}
                   >
                     <X className="h-3 w-3" />
                   </Button>
                 </Badge>
               )}
-              {filters.category && (
+              {filters.category && filters.category !== 'all' && (
                 <Badge variant="outline" className="flex items-center space-x-1">
                   <span>Category: {filters.category}</span>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-auto p-0 ml-1"
-                    onClick={() => onFilterChange('category', '')}
+                    onClick={() => onFilterChange('category', 'all')}
                   >
                     <X className="h-3 w-3" />
                   </Button>
                 </Badge>
               )}
-              {filters.assignedTo && (
+              {filters.assignedTo && filters.assignedTo !== 'all' && (
                 <Badge variant="outline" className="flex items-center space-x-1">
                   <span>Assigned: {filters.assignedTo}</span>
                   <Button
                     variant="ghost"
                     size="sm"
                     className="h-auto p-0 ml-1"
-                    onClick={() => onFilterChange('assignedTo', '')}
+                    onClick={() => onFilterChange('assignedTo', 'all')}
                   >
                     <X className="h-3 w-3" />
                   </Button>
